@@ -16,6 +16,7 @@ import { mapValues } from '../runtime';
 import type { InventoryData } from './InventoryData';
 import {
     InventoryDataFromJSON,
+    InventoryDataFromJSONTyped,
     InventoryDataToJSON,
 } from './InventoryData';
 
@@ -65,7 +66,7 @@ export function InventoryFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     return {
         
         'vcenterId': json['vcenter_id'],
-        'clusters': json['clusters'] == null ? undefined : (mapValues(json['clusters'], InventoryDataFromJSON)),
+        'clusters': (mapValues(json['clusters'], InventoryDataFromJSON)),
         'vcenter': json['vcenter'] == null ? undefined : InventoryDataFromJSON(json['vcenter']),
     };
 }
@@ -77,7 +78,7 @@ export function InventoryToJSON(value?: Inventory | null): any {
     return {
         
         'vcenter_id': value['vcenterId'],
-        'clusters': value['clusters'] == null ? undefined : (mapValues(value['clusters'], InventoryDataToJSON)),
+        'clusters': (mapValues(value['clusters'], InventoryDataToJSON)),
         'vcenter': InventoryDataToJSON(value['vcenter']),
     };
 }
